@@ -1,0 +1,101 @@
+<DOCTYPE html>
+<html>
+<!-- <script>
+    setTimeout(function(){
+    location.reload();
+    }, 500);
+</script> -->
+<head>
+<script>
+    const BtnSendMessage = document.querySelector(".button_send_massage");
+    
+
+    function createNewDiv()
+    {
+        const DivContainer = document.getElementById("div_container");
+        const newDiv = document.createElement("div");
+        // const newContent = document.createTextNode(text);
+        // newDiv.appendChild(newContent);
+        newDiv.classList.add("massage_from_client")
+        // document.querySelector();
+
+        DivContainer.appendChild(newDiv);
+
+        console.log("ok")
+
+    }
+
+</script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css')}}">
+
+    <div class="title">
+    {% block title %}
+    {% if title %}
+        <title>{{title}}</title>
+    {% else %}
+        <title> Главная страница </title>
+    {% endif %}
+    {% endblock %}
+    </div>
+</head>
+<body>
+    
+    <div class="content">
+    {% block content %}
+        <div>
+    {% block mainmenu %}
+    <ul class="mainmenu">
+        {% for m in menu %}
+    <li><a href="{{m.url}}" class="a_mainmenu">{{m.name}}</a></li>
+        {% endfor %}
+    </ul>    
+    {% endblock %}
+        </div>
+    
+    {% endblock %}
+    </div>
+    {% block authorization %}
+    <div class="register">
+        <form method="post">
+            <input type="text" name="name_user" placeholder="имя" class="input_name">
+            <button type="submit" class="button_register"></button>
+        </form>
+    </div>
+    {% endblock %}
+
+
+    {% block dialog_window %}
+    <div class="dialog_window">
+        
+        <div class="message" >
+            <div class="table_info_about_bot"> Бот </div>
+            {% block divContainer %}
+             <div class="div_container" id="div_container">
+                {% for mes in arrMessage %}
+                    <div class="message_div">
+                        {{mes}} 
+                    </div>
+                {% endfor %}
+
+            </div>
+            {% endblock %}
+            
+        </div>
+        <div class="input_panel">
+            <form method="post">
+                <input class="input" type="text" name="message" placeholder="Напишите нашему Боту">
+                <button type="submit" class="button_send_message"> 
+                </button>
+            </form>
+        </div>
+    </div>
+    {% endblock %}
+    <br />
+    <br />
+    <br />
+
+    <!-- <div class="table_info_last">
+        <div class="phone_numer">Связь: +7-961-183-85-81</div>
+    </div> -->
+</body>
+</html>
